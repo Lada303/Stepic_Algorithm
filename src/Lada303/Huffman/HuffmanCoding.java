@@ -1,4 +1,16 @@
-package Lada303;
+package Lada303.Huffman;
+/*
+Восстановите строку по её коду и беспрефиксному коду символов.
+В первой строке входного файла заданы два целых числа k и l через пробел — количество различных букв,
+встречающихся в строке, и размер получившейся закодированной строки, соответственно. В следующих k строках
+записаны коды букв в формате "letter: code". Ни один код не является префиксом другого. Буквы могут быть
+перечислены в любом порядке. В качестве букв могут встречаться лишь строчные буквы латинского алфавита;
+каждая из этих букв встречается в строке хотя бы один раз. Наконец, в последней строке записана
+закодированная строка. Исходная строка и коды всех букв непусты. Заданный код таков, что закодированная
+строка имеет минимальный возможный размер.
+В первой строке выходного файла выведите строку s. Она должна состоять из строчных букв латинского алфавита.
+Гарантируется, что длина правильного ответа не превосходит 10^4 символов.
+*/
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Scanner;
-
+//Построение дерева и его обход при декодировании
 public class HuffmanCoding {
 
     class Node implements Comparable <Node>{
@@ -64,7 +76,6 @@ public class HuffmanCoding {
         Scanner input = new Scanner(new File("input.txt"));
         String str = input.nextLine();
         Map<Character, Integer> charFrequency = new HashMap<>();
-
         for (int i = 0; i < str.length(); i++) {
             char ch = str.charAt(i);
             if (charFrequency.containsKey(ch)) {
@@ -108,11 +119,9 @@ public class HuffmanCoding {
             encodingString.append(charNode.get(ch).code);
         }
         System.out.println(encodingString);
-
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-
         long startTime = System.currentTimeMillis();
         new HuffmanCoding().run();
         long finishTime = System.currentTimeMillis();

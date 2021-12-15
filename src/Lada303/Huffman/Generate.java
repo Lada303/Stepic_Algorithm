@@ -1,4 +1,4 @@
-package Lada303;
+package Lada303.Huffman;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
