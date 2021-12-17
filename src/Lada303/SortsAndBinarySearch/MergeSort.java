@@ -1,5 +1,11 @@
-package Lada303;
-
+package Lada303.SortsAndBinarySearch;
+/*
+Первая строка содержит число 1≤n≤10^5, вторая — массив A[1…n], содержащий натуральные числа, не
+превосходящие 10^9. Необходимо посчитать число пар индексов 1≤i<j≤n, для которых A[i]>A[j].
+(Такая пара элементов называется инверсией массива. Количество инверсий в массиве является в некотором
+смысле его мерой неупорядоченности: например, в упорядоченном по неубыванию массиве инверсий нет вообще,
+а в массиве, упорядоченном по убыванию, инверсию образуют каждые два элемента.)
+*/
 import java.util.*;
 
 public class MergeSort {
@@ -60,6 +66,7 @@ public class MergeSort {
         return arrResult;
     }
 
+
     // Васриант с использованием нового массива
     public static long[] mergeSortRecursive(long[] arr, int left, int right) {
         int middle;
@@ -73,7 +80,6 @@ public class MergeSort {
         System.out.println(Arrays.toString(arrElement));
         return arrElement;
     }
-
     public static long[] myMerge(long[] arrLeft, long[] arrRight) {
         long[] arrResult = new long[arrLeft.length + arrRight.length];
         int countLeft = 0;

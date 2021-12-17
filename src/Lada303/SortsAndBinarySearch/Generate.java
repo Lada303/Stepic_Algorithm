@@ -1,4 +1,4 @@
-package Lada303.QuickSortAndBinarySearch;
+package Lada303.SortsAndBinarySearch;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
