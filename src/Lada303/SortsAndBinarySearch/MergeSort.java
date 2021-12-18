@@ -75,10 +75,8 @@ public class MergeSort {
             return myMerge(mergeSortRecursive(arr, left, middle),
                                     mergeSortRecursive(arr, middle + 1, right));
         }
-        long[] arrElement = new long[1];
-        arrElement[0] = arr[left];
-        System.out.println(Arrays.toString(arrElement));
-        return arrElement;
+        System.out.println(Arrays.toString(new long[]{arr[left]}));
+        return new long[]{arr[left]};
     }
     public static long[] myMerge(long[] arrLeft, long[] arrRight) {
         long[] arrResult = new long[arrLeft.length + arrRight.length];

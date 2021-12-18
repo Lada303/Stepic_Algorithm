@@ -15,9 +15,9 @@ import java.util.Scanner;
 
 public class QuickSort {
 
-    public void run() throws FileNotFoundException {
-        //Scanner sc = new Scanner(System.in);
-        Scanner sc = new Scanner(new File("SectionsAndPoints.txt"));
+    public void run() {
+        Scanner sc = new Scanner(System.in);
+        //Scanner sc = new Scanner(new File("SectionsAndPoints.txt"));
         int n = sc.nextInt();
         int m = sc.nextInt();
         int[] arrayStartPointSegments = new int[n];
@@ -26,6 +26,8 @@ public class QuickSort {
             arrayStartPointSegments[i] = sc.nextInt();
             arrayEndPointSegments[i] = sc.nextInt();
         }
+        sc.close();
+
         quickSort(arrayStartPointSegments, 0, n - 1);
         quickSort(arrayEndPointSegments, 0, n - 1);
         int indexInArraySPS;
@@ -38,57 +40,16 @@ public class QuickSort {
                 System.out.print(0 + " ");
                 continue;
             }
-            indexInArraySPS = searchIndexInArraySPS(point, arrayStartPointSegments);
+            indexInArraySPS = point > arrayStartPointSegments[n - 1] ? n - 1 :
+                    binarySearch(point, arrayStartPointSegments, 'r');
             if (point <= arrayEndPointSegments[0]) {
                 System.out.print((indexInArraySPS + 1) + " ");
                 continue;
             }
-            indexInArrayEPS = searchIndexInArrayEPS(point, arrayEndPointSegments);
+            indexInArrayEPS = binarySearch(point, arrayEndPointSegments, 'l');
             System.out.print((indexInArraySPS + 1) - (indexInArrayEPS) > 0 ?
                     (indexInArraySPS + 1) - (indexInArrayEPS) + " " : "0 ");
         }
-    }
-
-    private int searchIndexInArraySPS(int point, int[] arr) {
-        int pointNew;
-        int index;
-        if (point > arr[arr.length - 1]) {
-            return arr.length - 1;
-        } else {
-            index = binarySearch(point, arr);
-            if (arr[index] <= point) {
-                pointNew = arr[index];
-                while (index + 1 != arr.length && arr[index + 1] == pointNew) {
-                    index++;
-                }
-            } else {
-                while (index - 1 >= 0 && arr[index] > point) {
-                    index--;
-                }
-            }
-        }
-        return index;
-    }
-
-    private int searchIndexInArrayEPS(int point, int[] arr) {
-        int pointNew;
-        int index;
-        if (point == arr[arr.length - 1]) {
-            index = arr.length - 1;
-        } else {
-            index = binarySearch(point, arr);
-        }
-        if (arr[index] >= point) {
-            pointNew = arr[index];
-            while (index - 1 != 0 && arr[index - 1] == pointNew) {
-                index--;
-            }
-        } else {
-            while (index + 1 != arr.length && arr[index] < point) {
-                index++;
-            }
-        }
-        return index;
     }
 
     private void quickSort(int[] arr, int left, int right) {
@@ -134,21 +95,20 @@ public class QuickSort {
         return  middle;
     }
 
-    private int binarySearch(int intK, int[] arrayN) {
-        int left = 0;
-        int right = arrayN.length-1;
-        int middle = 0;
-        while (left <= right) {
-            middle = (left + right) / 2;
-            if (arrayN[middle] == intK) {
-                return middle;
-            } else if (arrayN[middle] > intK) {
-                right = middle - 1;
+    private int binarySearch(int intK, int[] arrayN, char flag) {
+        int left = -1;
+        int right = arrayN.length;
+        int middle;
+        while (right > left + 1) {
+            middle = (left + right) >> 1;
+            if ((flag == 'l' && arrayN[middle] < intK)
+                    || (flag == 'r' && arrayN[middle] <= intK)) {
+                left = middle;
             } else {
-                left = middle + 1;
+                right = middle;
             }
         }
-        return middle;
+        return flag == 'l' ? right : left;
     }
 
 }

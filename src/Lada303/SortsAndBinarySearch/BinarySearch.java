@@ -6,6 +6,8 @@ package Lada303.SortsAndBinarySearch;
 для которого A[j]=bi, или −1, если такого j нет.
  */
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class BinarySearch {
@@ -18,13 +20,25 @@ public class BinarySearch {
             arrayNumbers[i] = sc.nextInt();
         }
         int countK = sc.nextInt();
-        int intK;
+        int[] points = new int[countK];
         for (int i = 0; i < countK; i++) {
-            intK = sc.nextInt();
-            binarySearch(intK, arrayNumbers);
+            points[i] = sc.nextInt();
+            binarySearch(points[i], arrayNumbers);
+        }
+
+        //вариант с hashmap
+        Map<Integer, Integer> positions = new HashMap<>();
+        for (int i = 0; i < arrayLength; i++) {
+            positions.put(arrayNumbers[i], i);
+        }
+        for (int i = 0; i < countK; i++) {
+            int pos = positions.containsKey(points[i]) ? positions.get(points[i]) : -1;
         }
     }
 
+
+
+    //вариант 1 - любое случайное расположение числа
     private void binarySearch(int intK, int[] arrayN) {
         int left = 0;
         int right = arrayN.length-1;
@@ -41,5 +55,44 @@ public class BinarySearch {
             }
         }
         System.out.print("-1 ");
+    }
+
+    //вариант 2
+    private int binarySearchLeft(int intK, int[] arrayN) {
+        int left = -1;
+        int right = arrayN.length;
+        int middle;
+        while (right > left + 1) {
+            middle = (left + right) >> 1;
+            if (arrayN[middle] < intK) {
+                left = middle;
+            } else {
+                right = middle;
+            }
+        }
+        if (right < arrayN.length && arrayN[right] == intK) {
+            return right + 1;
+        } else {
+            return -1;
+        }
+    }
+
+    private int binarySearchRight(int intK, int[] arrayN) {
+        int left = -1;
+        int right = arrayN.length;
+        int middle;
+        while (right > left + 1) {
+            middle = (left + right) >> 1;
+            if (arrayN[middle] <= intK) {
+                left = middle;
+            } else {
+                right = middle;
+            }
+        }
+        if (left >= 0 && arrayN[left] == intK) {
+            return left + 1;
+        } else {
+            return -1;
+        }
     }
 }
