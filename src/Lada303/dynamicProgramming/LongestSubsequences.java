@@ -1,4 +1,4 @@
-package Lada303;
+package Lada303.dynamicProgramming;
 
 
 import java.util.Arrays;
